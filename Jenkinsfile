@@ -1,13 +1,13 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials') // Ensure this matches your credentials ID
-        DOCKER_IMAGE = "your-dockerhub-username/react-jenkins-docker-k8s" // Update with your actual Docker Hub repository name
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials') // Change to your credentials ID
+        DOCKER_IMAGE = "prasad123456789/react-jenkins-docker-k8s" // Change to your Docker Hub username
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/prasadjr/prasad_main_work.git'
+                git branch: 'main', url: 'https://github.com/prasadjr/react-jenkins-docker-k8s.git'
             }
         }
         stage('Build') {
@@ -20,7 +20,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) { // Use variable here
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
                         docker.image(DOCKER_IMAGE).push("latest")
                     }
                 }
